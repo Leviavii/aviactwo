@@ -36,3 +36,21 @@ resource "aws_db_instance" "rds_024" {
 
   tags = { Project = "wiz-c2c-crossrepo-test" }
 }
+
+###############################################################################
+# RDS-027: RDS Cluster deletion protection should be enabled
+# Misconfig: deletion_protection = false. Aurora MySQL cluster created with no
+# instances (the cluster entity is what the rule evaluates) to keep cost near
+# zero — no instance-hours, only minimal cluster storage.
+###############################################################################
+resource "aws_rds_cluster" "rds_027" {
+  cluster_identifier   = "${var.name_prefix}-rds-027"
+  engine               = "aurora-mysql"
+  master_username      = "wizadmin"
+  master_password      = "Wiz-Crossrepo-Test-123!"
+  db_subnet_group_name = var.db_subnet_group_name
+  deletion_protection  = false
+  skip_final_snapshot  = true
+
+  tags = { Project = "wiz-c2c-crossrepo-test" }
+}

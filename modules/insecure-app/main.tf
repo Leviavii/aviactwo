@@ -53,21 +53,6 @@ resource "aws_api_gateway_stage" "api_011" {
 }
 
 ###############################################################################
-# InstanceGroup-007: ECS Cluster container insights should be enabled
-# Misconfig: containerInsights disabled.
-###############################################################################
-resource "aws_ecs_cluster" "ig_007" {
-  name = "${var.name_prefix}-ecs-007"
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
-  }
-
-  tags = { Project = "wiz-c2c-crossrepo-test" }
-}
-
-###############################################################################
 # MessagingService-033: Event Bus should not allow access to all principals
 # Misconfig: resource policy with Principal "*", Allow, no condition.
 ###############################################################################
